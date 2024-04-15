@@ -1,0 +1,56 @@
+task_name = "server" # "infer"/"train"/"server"
+max_token_len = 512
+top_p = 0.9
+temperature = 0.9
+model = "outputs"
+
+[logger]
+environment="dev"
+
+[server]
+host = "0.0.0.0"
+port = 8000
+
+[llm_model]
+pretrained_model_name_or_path = "mistralai/Mistral-7B-v0.1"
+use_cache = false
+attn_implementation = "flash_attention_2"
+device_map = "auto"
+
+[llm_model.quantization_config]
+load_in_4bit = true
+bnb_4bit_use_double_quant = true
+bnb_4bit_quant_type = "nf4"
+bnb_4bit_compute_dtype = "bfloat16"
+
+
+[llm_data]
+path = "c-s-ale/alpaca-gpt4-data"
+split = "train"
+
+[paths]
+output_dir = "outputs/"
+log_dir = "outputs/logs/"
+
+[llm_training.trainer]
+per_device_train_batch_size = 6
+gradient_accumulation_steps = 2
+gradient_checkpointing = true
+max_steps = 2
+learning_rate = 2.5e-5
+logging_steps = 2
+bf16 = true
+tf32 = true
+optim = "paged_adamw_32bit"
+save_strategy = "steps"
+save_steps = 50
+report_to = "tensorboard"
+
+[llm_training]
+max_seq_len = 2048
+packing = true
+neftune_noise_alpha = 5
+
+[hf]
+push_huggingface = false
+hf_model_id = "sh-aidev/mistral-7b-v0.1-alpaca-chat"
