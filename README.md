@@ -1,5 +1,3 @@
-# llm-finetune-fastapi-inference
-
 <div align="center">
 
 # LLM Finetuning with FastApi Inference
