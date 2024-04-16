@@ -15,7 +15,7 @@ print("\n")
 
 import pyfiglet
 LLM_art = pyfiglet.figlet_format("LLM",  font="slant", justify="center")
-# print(LLM_art)
+print(LLM_art)
 
 sys.stdout.write(ANSI_RESET)
 
