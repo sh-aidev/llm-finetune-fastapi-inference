@@ -29,6 +29,14 @@ class PathConfig(BaseModel):
     output_dir: str
     log_dir: str
 
+class LoraConfig(BaseModel):
+    lora_alpha: int
+    lora_dropout: float
+    r: int
+    bias: str
+    task_type: str
+    target_modules: list
+
 class LLMTrainer(BaseModel):
     per_device_train_batch_size: int
     gradient_accumulation_steps: int
@@ -64,6 +72,7 @@ class Model(BaseModel):
     llm_model: LLMModel
     llm_data: LLMData
     paths: PathConfig
+    lora: LoraConfig
     llm_training: LLMTraining
     hf: Huggingface
 

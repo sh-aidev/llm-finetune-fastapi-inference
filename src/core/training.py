@@ -38,16 +38,12 @@ class FinetuningTraining():
         logger.debug(f"Model loaded...")
 
         peft_config = LoraConfig(
-            lora_alpha=16,
-            lora_dropout=0.1,
-            r=64,
-            bias="none",
-            task_type="CAUSAL_LM",
-            target_modules=[
-                "q_proj",
-                "k_proj",
-                "v_proj",
-            ]
+            lora_alpha=config.llm_config.lora.lora_alpha,
+            lora_dropout=config.llm_config.lora.lora_dropout,
+            r=config.llm_config.lora.r,
+            bias=config.llm_config.lora.bias,
+            task_type=config.llm_config.lora.task_type,
+            target_modules=config.llm_config.lora.target_modules
         )
 
         # prepare model for training
